@@ -4,7 +4,7 @@ var Express = require('express'),
     MethodOverride = require('method-override'),
     Router = Express.Router(),
     Mongoose = require('mongoose'),
-    Config = require('./ServerConfig.json'),
+    Config = require('./config.json'),
     Model = require('./Models/UserModel'),
     UserCtrl = require('./Controllers/UserController');
 
@@ -16,13 +16,20 @@ Server.use(MethodOverride());
 Mongoose.connect('mongodb://' + Config.DbHost + '/' + Config.db, function (err, res) {
     if (err) {
         console.log('Error: Database connection failed ...' + err);
+    }else{
+        Server.listen(Config.port, function () {
+            console.log('Node server running on http://localhost:' + Config.port);
+        });
     }
-    Server.listen(Config.port, function () {
-        console.log('Node server running on http://localhost:' + Config.port);
-    });
+
 });
 
 //Route config
+
+Router.route('/').get(function (req, res) {
+    res.jsonp({name: 'Index'});
+});
+
 Router.route('/users')
     .get(UserCtrl.findAllUsers)
     .post(UserCtrl.addUser);
