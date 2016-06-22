@@ -21,7 +21,6 @@ Mongoose.connect('mongodb://' + Config.DbHost + '/' + Config.db, function (err, 
             console.log('Node server running on http://localhost:' + Config.port);
         });
     }
-
 });
 
 //Route config
