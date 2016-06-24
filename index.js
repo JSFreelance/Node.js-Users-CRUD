@@ -1,42 +1,41 @@
-var Express = require('express'),
-    Server = Express(),
-    bodyParser = require('body-parser'),
-    MethodOverride = require('method-override'),
-    Router = Express.Router(),
-    Mongoose = require('mongoose'),
-    Config = require('./config.json'),
-    Model = require('./Models/UserModel'),
-    UserCtrl = require('./Controllers/UserController');
+var express = require('express');
+var server = express();
+var bodyParser = require('body-parser');
+var methodOverride = require('method-override');
+var router = express.Router();
+var mongoose = require('mongoose');
+var config = require('./config.json');
+var model = require('./Models/UserModel');
+var userCtrl = require('./Controllers/UserController');
 
 //Express Middleware config
-Server.use(bodyParser.urlencoded({extended: true}));
-Server.use(bodyParser.json());
-Server.use(MethodOverride());
+server.use(bodyParser.urlencoded({extended: true}));
+server.use(bodyParser.json());
+server.use(methodOverride());
 
-Mongoose.connect('mongodb://' + Config.DbHost + '/' + Config.db, function (err, res) {
+mongoose.connect('mongodb://' + config.DbHost + '/' + config.db, function (err, res) {
     if (err) {
         console.log('Error: Database connection failed ...' + err);
-    }else{
-        Server.listen(Config.port, function () {
-            console.log('Node server running on http://localhost:' + Config.port);
+    } else {
+        server.listen(config.port, function () {
+            console.log('Node server running on http://localhost:' + config.port);
         });
     }
 });
 
 //Route config
 
-Router.route('/').get(function (req, res) {
+router.route('/').get(function (req, res) {
     res.jsonp({name: 'Index'});
 });
 
-Router.route('/users')
-    .get(UserCtrl.findAllUsers)
-    .post(UserCtrl.addUser);
+router.route('/users')
+    .get(userCtrl.findAllUsers)
+    .post(userCtrl.addUser);
 
-Router.route('/users/:id')
-    .get(UserCtrl.findById)
-    .put(UserCtrl.updateUser)
-    .delete(UserCtrl.deleteUser);
+router.route('/users/:id')
+    .get(userCtrl.findById)
+    .put(userCtrl.updateUser)
+    .delete(userCtrl.deleteUser);
 
-Server.use('/', Router);
-
+server.use('/', router);
