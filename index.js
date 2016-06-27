@@ -13,7 +13,7 @@ server.use(bodyParser.urlencoded({extended: true}));
 server.use(bodyParser.json());
 server.use(methodOverride());
 
-mongoose.connect('mongodb://' + config.DbHost + '/' + config.db, function (err, res) {
+mongoose.connect('mongodb://' + config.dbHost + '/' + config.db, function (err, res) {
     if (err) {
         console.log('Error: Database connection failed ...' + err);
     } else {
@@ -24,11 +24,6 @@ mongoose.connect('mongodb://' + config.DbHost + '/' + config.db, function (err, 
 });
 
 //Route config
-
-router.route('/').get(function (req, res) {
-    res.jsonp({name: 'Index'});
-});
-
 router.route('/users')
     .get(userCtrl.findAllUsers)
     .post(userCtrl.addUser);
@@ -39,3 +34,4 @@ router.route('/users/:id')
     .delete(userCtrl.deleteUser);
 
 server.use('/', router);
+server.use('/', express.static(__dirname + '/public'));

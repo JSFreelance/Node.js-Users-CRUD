@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+<button type="button" class="btn btn-primary">Create user</button>
+
+<div class="panel panel-default">
+    <div class="panel-heading">Panel Heading</div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Mail</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr ng-repeat="user in userList">
+            <td>{{user.firstName}}</td>
+            <td>{{user.lastName}}</td>
+            <td>{{user.email}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

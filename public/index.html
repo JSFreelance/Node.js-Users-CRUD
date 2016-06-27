@@ -1,0 +1,37 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- load CSS  -->
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="styles/app.css">
+  <!-- Load Scripts -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>
+  <script src="scripts/app.js"></script>
+  <script src="scripts/controllers/IndexCtrl.js"></script>
+  <script src="scripts/controllers/AboutCtrl.js"></script>
+</head>
+
+<!-- apply our angular app to our site -->
+<body ng-app="routerApp">
+
+<!-- Using Bootstrap styles, Angular's ng-class directive and UI router sref directive-->
+<div class="page-header" >
+<nav class="navbar" role="navigation">
+  <div class="navbar-inner">
+    <a class="navbar-brand"  ui-sref="home">Node.js Users CRUD</a>
+  </div>
+  <ul class="nav nav-pills">
+    <li ng-class="{active: $state.includes('home')}"><a ui-sref="home">Home</a></li>
+    <li ng-class="{active: $state.includes('about')}"><a ui-sref="about">About</a></li>
+  </ul>
+</nav>
+</div>
+
+<div class="container">
+  <!-- angular dynamic content section-->
+  <div ui-view></div>
+</div>
+</body>
+</html>

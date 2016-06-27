@@ -6,19 +6,6 @@ var server = supertest.agent('http://localhost:' + config.port);
 
 describe('Sample unit test', function () {
 
-    //It should return home page
-    it('GET / should return a index response', function (done) {
-        server.get('/')
-            .expect('Content-type', /json/)
-            .expect(200)
-            .end(function (err, res) {
-                res.status.should.equal(200);
-                res.error.should.equal(false);
-                res.body.name.should.equal('Index');
-                done();
-            });
-    });
-
     it('GET /users should return a list of users', function (done) {
         server.get('/users')
             .expect('Content-type', /json/)
